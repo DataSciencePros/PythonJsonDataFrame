@@ -12,6 +12,7 @@ print(df)
 # row 1     a     b
 # row 2     c     d
 
+# =====================================
 # === split oriented
 
 json_formatted_data = df.to_json(orient='split')
@@ -22,8 +23,9 @@ print(json_formatted_data)
 #   "data":[["a","b"],["c","d"]]}'
 
 df2 = pd.read_json(json_formatted_data, orient='split')
-assert df.equals(df2),  "convert and convert back failed for split type conversion"
+assert df.equals(df2),  "convert and convert back failed for split oriented conversion"
 
+# =====================================
 # === index oriented
 
 json_formatted_data = df.to_json(orient='index')
@@ -33,8 +35,9 @@ print(json_formatted_data)
 #  "row 2":{"col 1":"c","col 2":"d"}}
 
 df2 = pd.read_json(json_formatted_data, orient='index')
-assert df.equals(df2),  "convert and convert back failed for split type conversion"
+assert df.equals(df2),  "convert and convert back failed for index oriented conversion"
 
+# =====================================
 # === records oriented (index labels lost)
 
 json_formatted_data = df.to_json(orient='records')
@@ -44,5 +47,6 @@ print(json_formatted_data)
 #   {"col 1":"c","col 2":"d"}]'
 
 df2 = pd.read_json(json_formatted_data, orient='records')
-assert df.equals(df2),  "convert and convert back failed for split type conversion"
+# convert and convert back for records oriented conversion won't give original result,
+# since the index labels got lost!
 
